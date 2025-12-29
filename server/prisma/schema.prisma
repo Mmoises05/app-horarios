@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  role         String        // 'docente' | 'programador'
+  password     String        @default("$2a$10$YourHashHere") // Default for migration, will seed proper hashes
+  availability Availability[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Availability {
+  id           String     @id @default(uuid())
+  day          String
+  observations String?
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slots        TimeSlot[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([userId, day]) // One availability record per day per user
+}
+
+model TimeSlot {
+  id             String       @id @default(uuid())
+  startTime      String
+  endTime        String
+  availabilityId String
+  availability   Availability @relation(fields: [availabilityId], references: [id], onDelete: Cascade)
+}
