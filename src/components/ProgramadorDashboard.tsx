@@ -394,7 +394,10 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
               <table className="w-full table-fixed">
                 <thead className="bg-white border-b border-slate-200/80">
                   <tr>
-                    <th className="w-[18%] px-6 py-6 text-left text-[11px] font-extrabold text-slate-800 uppercase tracking-wider sticky left-0 bg-white z-20 border-r border-slate-100 shadow-[4px_0_15px_-5px_rgba(0,0,0,0.05)]">
+                    <th className="w-[50px] px-2 py-6 text-center text-[11px] font-extrabold text-slate-400 uppercase tracking-wider sticky left-0 bg-white z-20 border-r border-slate-100">
+                      #
+                    </th>
+                    <th className="w-[18%] px-6 py-6 text-left text-[11px] font-extrabold text-slate-800 uppercase tracking-wider sticky left-[50px] bg-white z-20 border-r border-slate-100 shadow-[4px_0_15px_-5px_rgba(0,0,0,0.05)]">
                       Docente
                     </th>
                     {daysOfWeek.map(day => (
@@ -407,8 +410,13 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
                 <tbody className="divide-y divide-slate-100">
                   {filteredDocentes.map((docente, idx) => (
                     <tr key={docente.id} className={`group hover:bg-red-50/10 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-[#FAFAFA]'}`}>
+                      {/* Index Column */}
+                      <td className="px-2 py-5 text-center text-[10px] font-bold text-slate-400 sticky left-0 bg-white group-hover:bg-[#FFF5F5] z-10 border-r border-slate-100 align-top transition-colors">
+                        {idx + 1}
+                      </td>
+
                       {/* Docente Column */}
-                      <td className="px-6 py-5 sticky left-0 bg-white group-hover:bg-[#FFF5F5] z-10 border-r border-slate-100 shadow-[4px_0_15px_-5px_rgba(0,0,0,0.05)] align-top transition-colors">
+                      <td className="px-6 py-5 sticky left-[50px] bg-white group-hover:bg-[#FFF5F5] z-10 border-r border-slate-100 shadow-[4px_0_15px_-5px_rgba(0,0,0,0.05)] align-top transition-colors">
                         <button
                           onClick={() => setEditingDocente(docente)}
                           className="flex flex-col gap-1.5 text-left group/btn hover:translate-x-1 transition-transform w-full"
