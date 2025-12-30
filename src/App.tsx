@@ -50,7 +50,11 @@ function App() {
         return res.json();
       })
       .then(data => {
-        setDocentes(data);
+        // Ensure alphabetical sort
+        const sortedData = data.sort((a: DocenteData, b: DocenteData) =>
+          a.name.localeCompare(b.name)
+        );
+        setDocentes(sortedData);
         setIsLoading(false);
       })
       .catch(err => {

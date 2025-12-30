@@ -1,17 +1,18 @@
 export const DOCENTES_DATA = [
     // --- SUPER ADMINS ---
-    { id: "SA001", name: "RENGIFO GUTIERREZ, MARLON MOISES", email: "marlon.rengifo@utp.edu.pe", role: "programador" },
     { id: "SA002", name: "NUÑEZ ARANA, CLAUDIA ELIZABETH", email: "claudia.nunez@utp.edu.pe", role: "programador" },
+    { id: "SA001", name: "RENGIFO GUTIERREZ, MARLON MOISES", email: "marlon.rengifo@utp.edu.pe", role: "programador" },
 
-    // --- COORDINADORES (ADMINS) ---
-    { id: "E31582", name: "BABILONIA CHUQUIZUTA, JULIZA MILAGROS", email: "juliza.babilonia@utp.edu.pe", role: "programador" },
-    { id: "E31380", name: "MORI DA SILVA, LUZ AYDEE", email: "luz.mori@utp.edu.pe", role: "programador" },
-    { id: "E31375", name: "SINTI RAMIREZ, JORGE ENRIQUE", email: "jorge.sinti@utp.edu.pe", role: "programador" },
-    { id: "C30149", name: "SOLIS COLLANTES, DASHIA LUSHIANA", email: "dashia.solis@utp.edu.pe", role: "programador" },
+    // --- COORDINADORES (ADMINISTRADORES) ---
+    { id: "ADM001", name: "BABILONIA CHUQUIZUTA, JULIZA MILAGROS (Admin)", email: "admin.juliza.babilonia@utp.edu.pe", role: "programador" },
+    { id: "ADM002", name: "MORI DA SILVA, LUZ AYDEE (Admin)", email: "admin.luz.mori@utp.edu.pe", role: "programador" },
+    { id: "ADM003", name: "SINTI RAMIREZ, JORGE ENRIQUE (Admin)", email: "admin.jorge.sinti@utp.edu.pe", role: "programador" },
+    { id: "ADM004", name: "SOLIS COLLANTES, DASHIA LUSHIANA (Admin)", email: "admin.dashia.solis@utp.edu.pe", role: "programador" },
 
-    // --- DOCENTES ---
+    // --- DOCENTES (ORDEN ALFABÉTICO) ---
     { id: "C32269", name: "AREVALO PANDURO, SILVIA DEL CARMEN", email: "silvia.arevalo@utp.edu.pe" },
     { id: "C32113", name: "ATIAS VASQUEZ, GLADIS SUSANA", email: "gladis.atias@utp.edu.pe" },
+    { id: "E31582", name: "BABILONIA CHUQUIZUTA, JULIZA MILAGROS", email: "juliza.babilonia@utp.edu.pe" },
     { id: "C32223", name: "BREÑA MOZOMBITE, CARLOS ALBERTO", email: "carlos.brena@utp.edu.pe" },
     { id: "C32380", name: "CHOQUE CALISAYA, DORIAN ELDER", email: "dorian.choque@utp.edu.pe" },
     { id: "C32314", name: "CONTRERAS SANDOVAL, AXEL LUIS", email: "axel.contreras@utp.edu.pe" },
@@ -30,6 +31,7 @@ export const DOCENTES_DATA = [
     { id: "C32228", name: "MELENDEZ RAMIREZ, ERNESTO EDIN", email: "ernesto.melendez@utp.edu.pe" },
     { id: "C32375", name: "MELENDEZ RUIZ, LUIS JOSE", email: "luis.melendez@utp.edu.pe" },
     { id: "C32196", name: "MENDOZA ARRAGUI, NANCY TERESA", email: "nancy.mendoza@utp.edu.pe" },
+    { id: "E31380", name: "MORI DA SILVA, LUZ AYDEE", email: "luz.mori@utp.edu.pe" },
     { id: "C32125", name: "NOGUEIRA GUERRA, ROY JEHRSON", email: "roy.nogueira@utp.edu.pe" },
     { id: "C32197", name: "PEREZ RUIZ, RICARDO", email: "ricardo.perez@utp.edu.pe" },
     { id: "C32205", name: "PINEDO LOZANO, JEAN PAUL", email: "jean.pinedo@utp.edu.pe" },
@@ -43,6 +45,8 @@ export const DOCENTES_DATA = [
     { id: "C32306", name: "ROMERO FLORES, EBERSON", email: "eberson.romero@utp.edu.pe" },
     { id: "C32271", name: "SALAZAR MACO, EDGAR HERNAN", email: "edgar.salazar@utp.edu.pe" },
     { id: "C32107", name: "SANCHEZ BABILONIA, JULIANA", email: "juliana.sanchez@utp.edu.pe" },
+    { id: "E31375", name: "SINTI RAMIREZ, JORGE ENRIQUE", email: "jorge.sinti@utp.edu.pe" },
+    { id: "C30149", name: "SOLIS COLLANTES, DASHIA LUSHIANA", email: "dashia.solis@utp.edu.pe" },
     { id: "C32381", name: "SOLOGUREN ANCHANTE, MILAGROS ROSARIO", email: "milagros.sologuren@utp.edu.pe" },
     { id: "C32244", name: "SUAREZ REATEGUI, SHIRLEY KESSLENA", email: "shirley.suarez@utp.edu.pe" },
     { id: "C32108", name: "TAFUR VEINTEMILLA, GEORGE DANIEL", email: "george.tafur@utp.edu.pe" },
