@@ -83,12 +83,19 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
     }
 
     // 2. Create Sheet
-    // Remove the hidden helper field for the actual worksheet data
-    const cleanData = dataToExport.map(({ _docenteId, ...rest }) => rest);
+    // Add "N°" column and remove hidden helper field
+    const cleanData = dataToExport.map((item, idx) => {
+      const { _docenteId, ...rest } = item;
+      return {
+        "N°": idx + 1,
+        ...rest
+      };
+    });
     const worksheet = XLSX.utils.json_to_sheet(cleanData);
 
     // Apply Column Widths
     const cols = [
+      { wch: 5 },  // N°
       { wch: 10 }, // ID Docente
       { wch: 25 }, // Nombre
       { wch: 30 }, // Email
@@ -153,7 +160,7 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
           };
 
           // Center for standard data columns
-          if ([0, 3, 4, 5].includes(C)) {
+          if ([0, 1, 4, 5, 6].includes(C)) {
             worksheet[cell_address].s.alignment.horizontal = "center";
           }
 
