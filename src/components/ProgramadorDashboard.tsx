@@ -572,8 +572,9 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
 
             <div className="flex-1 overflow-y-auto bg-[#F5F5F7] p-6">
               <AvailabilityEditor
-                initialAvailability={editingDocente.availability}
+                user={editingDocente}
                 onSave={handleSaveAvailability}
+                onCancel={() => setEditingDocente(null)}
               />
             </div>
           </div>
