@@ -2,17 +2,20 @@ import { useState } from 'react';
 import { LogOut, Filter, Download, Search, Clock, FileText } from 'lucide-react';
 import * as XLSX from 'xlsx-js-style';
 import { DocenteData } from '../App';
+import { AvailabilityEditor } from './AvailabilityEditor';
 
 interface ProgramadorDashboardProps {
   onLogout: () => void;
   docentes: DocenteData[];
+  onUpdate: (docente: DocenteData) => void;
 }
 
-export function ProgramadorDashboard({ onLogout, docentes }: ProgramadorDashboardProps) {
+export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: ProgramadorDashboardProps) {
   // ... existing state ...
   const [selectedDocente, setSelectedDocente] = useState<string>('all');
   const [selectedDay, setSelectedDay] = useState<string>('all');
   const [timeFilter, setTimeFilter] = useState<string>('all');
+  const [editingDocente, setEditingDocente] = useState<DocenteData | null>(null);
 
   const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -186,6 +189,11 @@ export function ProgramadorDashboard({ onLogout, docentes }: ProgramadorDashboar
 
     const dayData = docente.availability.find(a => a.day === day);
     return dayData;
+  };
+
+  const handleSaveAvailability = (updatedUser: DocenteData) => {
+    onUpdate(updatedUser);
+    setEditingDocente(null);
   };
 
   const filteredDocentes = filterDocentes();
@@ -401,10 +409,16 @@ export function ProgramadorDashboard({ onLogout, docentes }: ProgramadorDashboar
                     <tr key={docente.id} className={`group hover:bg-red-50/10 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-[#FAFAFA]'}`}>
                       {/* Docente Column */}
                       <td className="px-6 py-5 sticky left-0 bg-white group-hover:bg-[#FFF5F5] z-10 border-r border-slate-100 shadow-[4px_0_15px_-5px_rgba(0,0,0,0.05)] align-top transition-colors">
-                        <div className="flex flex-col gap-1.5">
-                          <span className="font-bold text-slate-800 text-sm leading-tight group-hover:text-[#E30613] transition-colors">{docente.name}</span>
+                        <button
+                          onClick={() => setEditingDocente(docente)}
+                          className="flex flex-col gap-1.5 text-left group/btn hover:translate-x-1 transition-transform w-full"
+                        >
+                          <span className="font-bold text-slate-800 text-sm leading-tight group-hover/btn:text-[#E30613] transition-colors flex items-center gap-2">
+                            {docente.name}
+                            <span className="opacity-0 group-hover/btn:opacity-100 text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded transition-opacity">EDITAR</span>
+                          </span>
                           <span className="text-[10px] text-slate-400 font-bold tracking-wide font-mono bg-slate-50 w-fit px-1.5 py-0.5 rounded border border-slate-100">{docente.email}</span>
-                        </div>
+                        </button>
                       </td>
 
                       {/* Days Columns */}
@@ -538,6 +552,33 @@ export function ProgramadorDashboard({ onLogout, docentes }: ProgramadorDashboar
       <footer className="max-w-[1920px] mx-auto px-8 py-8 text-center border-t border-slate-200/50 mt-8">
         <p className="text-[10px] text-slate-400 font-extrabold tracking-[0.2em] uppercase opacity-70">© 2026 Universidad Tecnológica del Perú - Sistema de Horarios</p>
       </footer>
+
+      {/* Admin Editor Modal */}
+      {editingDocente && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-fade-in">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-white sticky top-0 z-10">
+              <div>
+                <h2 className="text-xl font-bold text-slate-900">Editando Horario</h2>
+                <p className="text-sm text-slate-500">Docente: <span className="text-[#E30613] font-bold">{editingDocente.name}</span></p>
+              </div>
+              <button
+                onClick={() => setEditingDocente(null)}
+                className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+              >
+                <LogOut className="w-5 h-5 text-slate-400 rotate-180" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto bg-[#F5F5F7] p-6">
+              <AvailabilityEditor
+                initialAvailability={editingDocente.availability}
+                onSave={handleSaveAvailability}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes fade-in {

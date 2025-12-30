@@ -155,7 +155,8 @@ function App() {
     return (
       <ProgramadorDashboard
         onLogout={handleLogout}
-        docentes={docentes} // Pass global state
+        docentes={docentes}
+        onUpdate={handleUpdateDocente}
       />
     );
   }
