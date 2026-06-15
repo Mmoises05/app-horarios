@@ -38,7 +38,7 @@ function App() {
     if (!token) return; // Don't fetch if no token
 
     setIsLoading(true);
-    fetch('https://app-horarios-backend.onrender.com/api/docentes', {
+    fetch('/api/docentes', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -114,7 +114,7 @@ function App() {
 
     // 2. Send Update to Backend
     try {
-      const res = await fetch(`https://app-horarios-backend.onrender.com/api/docentes/${updatedUser.id}/disponibilidad`, {
+      const res = await fetch(`/api/docentes/${updatedUser.id}/disponibilidad`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
