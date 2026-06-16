@@ -17,6 +17,9 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
   const [timeFilter, setTimeFilter] = useState<string>('all');
   const [editingDocente, setEditingDocente] = useState<DocenteData | null>(null);
 
+  const [docenteSearch, setDocenteSearch] = useState('');
+  const [isDocenteDropdownOpen, setIsDocenteDropdownOpen] = useState(false);
+
   const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
   const filterSlots = (slots: any[]) => {
@@ -288,28 +291,59 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Docente Filter */}
-            <div className="group/filter">
+            {/* Docente Filter (Searchable) */}
+            <div className="group/filter relative z-50">
               <label className="block text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within/filter:text-[#E30613] transition-colors">
                 Docente
               </label>
               <div className="relative transform transition-all duration-200 focus-within:scale-[1.01]">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/filter:text-[#E30613] transition-colors" />
-                <select
-                  value={selectedDocente}
-                  onChange={(e) => setSelectedDocente(e.target.value)}
-                  className="w-full pl-11 pr-10 py-3.5 bg-slate-50 hover:bg-slate-50/80 border border-slate-200 hover:border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#E30613]/5 focus:border-[#E30613] appearance-none text-slate-700 text-sm font-semibold transition-all shadow-sm"
-                >
-                  <option value="all">Todos los docentes</option>
-                  {docentes.map(docente => (
-                    <option key={docente.id} value={docente.id}>
-                      {docente.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                  <div className="border-t-[5px] border-t-current border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent"></div>
-                </div>
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/filter:text-[#E30613] transition-colors z-10" />
+                <input
+                  type="text"
+                  placeholder="Buscar docente..."
+                  value={docenteSearch}
+                  onChange={(e) => {
+                    setDocenteSearch(e.target.value);
+                    setIsDocenteDropdownOpen(true);
+                    if (e.target.value === '') setSelectedDocente('all');
+                  }}
+                  onFocus={() => setIsDocenteDropdownOpen(true)}
+                  className="w-full pl-11 pr-10 py-3.5 bg-slate-50 hover:bg-slate-50/80 border border-slate-200 hover:border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#E30613]/5 focus:border-[#E30613] text-slate-700 text-sm font-semibold transition-all shadow-sm relative z-0"
+                />
+                
+                {isDocenteDropdownOpen && (
+                  <>
+                    {/* Invisible backdrop to close dropdown when clicking outside */}
+                    <div className="fixed inset-0 z-40" onClick={() => setIsDocenteDropdownOpen(false)}></div>
+                    <div className="absolute top-full left-0 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl max-h-60 overflow-y-auto z-50 py-2">
+                      <button
+                        onClick={() => {
+                          setSelectedDocente('all');
+                          setDocenteSearch('');
+                          setIsDocenteDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2.5 text-sm font-semibold hover:bg-red-50 hover:text-[#E30613] transition-colors ${selectedDocente === 'all' ? 'text-[#E30613] bg-red-50/50' : 'text-slate-700'}`}
+                      >
+                        Todos los docentes
+                      </button>
+                      {docentes
+                        .filter(d => d.name.toLowerCase().includes(docenteSearch.toLowerCase()))
+                        .map(docente => (
+                          <button
+                            key={docente.id}
+                            onClick={() => {
+                              setSelectedDocente(docente.id);
+                              setDocenteSearch(docente.name);
+                              setIsDocenteDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 text-sm font-semibold hover:bg-red-50 hover:text-[#E30613] transition-colors ${selectedDocente === docente.id ? 'text-[#E30613] bg-red-50/50' : 'text-slate-600'}`}
+                          >
+                            {docente.name}
+                          </button>
+                        ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -369,6 +403,7 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
                 <button
                   onClick={() => {
                     setSelectedDocente('all');
+                    setDocenteSearch('');
                     setSelectedDay('all');
                     setTimeFilter('all');
                   }}
