@@ -153,6 +153,16 @@ app.post('/api/docentes/:id/disponibilidad', authenticateToken, async (req: Requ
     }
 });
 
+// TEMPORARY ENDPOINT TO CLEAR SCHEDULES
+app.get('/api/admin/clear-all-schedules', async (req: Request, res: Response) => {
+    try {
+        await prisma.availability.deleteMany({});
+        res.json({ message: "¡Todas las disponibilidades han sido borradas exitosamente y desde cero!" });
+    } catch (e: any) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

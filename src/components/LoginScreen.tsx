@@ -187,6 +187,8 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
                           <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 group-focus-within/input:text-[#E30613] transition-colors">Usuario</label>
                           <input
                             type="email"
+                            name="email"
+                            autoComplete="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full border-b-2 border-slate-200 focus:border-[#E30613] outline-none py-2 text-base bg-transparent transition-colors placeholder:text-slate-300 text-slate-800 font-medium"
@@ -206,6 +208,8 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
                           <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 group-focus-within/input:text-[#E30613] transition-colors">Contraseña</label>
                           <input
                             type="password"
+                            name="password"
+                            autoComplete="current-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full border-b-2 border-slate-200 focus:border-[#E30613] outline-none py-2 text-base bg-transparent transition-colors placeholder:text-slate-300 text-slate-800 font-medium"
