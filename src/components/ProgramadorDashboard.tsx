@@ -315,7 +315,7 @@ export function ProgramadorDashboard({ onUpdate, onLogout, docentes }: Programad
                   <>
                     {/* Invisible backdrop to close dropdown when clicking outside */}
                     <div className="fixed inset-0 z-40" onClick={() => setIsDocenteDropdownOpen(false)}></div>
-                    <div className="absolute top-full left-0 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl max-h-60 overflow-y-auto z-50 py-2">
+                    <div className="absolute top-full left-0 w-full mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] max-h-[400px] overflow-y-auto z-50 py-2">
                       <button
                         onClick={() => {
                           setSelectedDocente('all');
